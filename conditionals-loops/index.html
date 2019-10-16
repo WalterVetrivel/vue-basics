@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+		<title>Conditionals Vue.js</title>
+	</head>
+	<body>
+		<div id="app">
+			<p>You see me</p>
+			<p v-if="show">Do you also see me?</p>
+			<p v-else>You don't see the other.</p>
+			<template v-if="showTemplate">
+				<h3>Inside template</h3>
+				<p>Also inside template</p>
+			</template>
+			<p v-show="show">Show/hide (not attach/detach)</p>
+			<button @click="show = !show">Toggle</button>
+			<button @click="showTemplate = !showTemplate">Toggle Template</button>
+			<div>
+				<ul>
+					<li
+						v-for="(person, index) in persons"
+						:style="{color: person.color}"
+						:key="person.id"
+					>
+						{{ index + 1 }}. {{ person.name }}, {{ person.age }}
+						<div v-for="(value, key) in person">{{ key }}: {{ value }}</div>
+					</li>
+				</ul>
+				<span v-for="n in 10">{{ n }}</span>
+			</div>
+		</div>
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					show: true,
+					showTemplate: true,
+					persons: [
+						{id: 1, name: 'Walter', age: 25, color: 'blue'},
+						{id: 2, name: 'Gracy', age: 23, color: 'green'}
+					]
+				}
+			});
+		</script>
+	</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+		<title>Computed Properties</title>
+	</head>
+	<body>
+		<div id="app">
+			<button @click="counter++">Increment</button>
+			<button @click="secondCounter++">Increment Second</button>
+			<button @click="counter--">Decrement</button>
+			<button @click="secondCounter--">Decrement Second</button>
+			<p>Counter: {{ counter }} | {{ secondCounter }}</p>
+			<p>Result (method): {{ result() }}</p>
+			<p>Result (computed): {{ output }}</p>
+			<p>Result Counter 2 (watch): {{ result2 }}</p>
+		</div>
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					counter: 0,
+					secondCounter: 0,
+					result2: ''
+				},
+				computed: {
+					output: function() {
+						// Not called if counter is not changed
+						// Async tasks can't be performed
+						console.log('computed');
+						return this.counter > 5
+							? 'Greater than 5'
+							: 'Less than or equal to 5';
+					}
+				},
+				watch: {
+					secondCounter: function(value) {
+						// Executed when secondCounter is changed
+						// Async tasks can be performed
+						console.log('Watch');
+						this.result2 =
+							value > 10 ? 'Greater than 10' : 'Less than or equal to 10';
+					}
+				},
+				methods: {
+					result: function() {
+						// Called every time any data is changed
+						console.log('Not computed');
+						return this.counter > 5
+							? 'Greater than 5'
+							: 'Less than or equal to 5';
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

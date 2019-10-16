@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+		<title>Vue.js</title>
+	</head>
+	<body>
+		<div id="app">
+			<button v-on:click="incrementCounter(2, $event)">Click Me</button>
+			<p>{{ counter }}</p>
+			<p v-on:mousemove="updateCoordinates">
+				Coordinates: ({{ x }}, {{ y }})
+				<span v-on:mousemove.stop="">DEAD SPOT</span>
+			</p>
+			<input type="text" v-on:keyup.enter="alertMe" />
+		</div>
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					counter: 0,
+					x: 0,
+					y: 0
+				},
+				methods: {
+					incrementCounter: function(step, e) {
+						this.counter += step;
+						console.log(e.target);
+					},
+					updateCoordinates: function(e) {
+						this.x = e.clientX;
+						this.y = e.clientY;
+					},
+					alertMe: function(e) {
+						alert(e.target.value);
+					}
+				}
+			});
+		</script>
+	</body>
+</html>

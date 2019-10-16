@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+		<title>Dynamic CSS Vue.js</title>
+		<style>
+			.d-flex {
+				display: flex;
+			}
+			.demo {
+				width: 100px;
+				height: 100px;
+				background-color: #777;
+				margin: 0.5rem;
+			}
+			.red {
+				background-color: red;
+			}
+			.green {
+				background-color: green;
+			}
+			.blue {
+				background-color: blue;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="app">
+			<div class="d-flex">
+				<div
+					class="demo"
+					@click="attachRed = !attachRed"
+					:class="{'red': attachRed}"
+				></div>
+				<div
+					class="demo"
+					@click="attachGreen = !attachGreen"
+					:class="{'green': attachGreen}"
+				></div>
+				<div
+					class="demo"
+					@click="attachBlue = !attachBlue"
+					:class="{'blue': attachBlue}"
+				></div>
+				<div class="demo" :class="divClasses"></div>
+				<div class="demo" :class="color"></div>
+				<div class="demo" :style="divStyles"></div>
+				<div class="demo" :style="[divStyles, {height: width + 'px'}]"></div>
+			</div>
+			<input type="text" v-model="color" />
+			<input type="text" v-model="width" />
+		</div>
+		<script>
+			new Vue({
+				el: '#app',
+				data: {
+					attachRed: false,
+					attachGreen: false,
+					attachBlue: false,
+					color: 'green',
+					width: 100
+				},
+				computed: {
+					divClasses: function() {
+						return {
+							blue: !this.attachRed,
+							red: this.attachRed
+						};
+					},
+					divStyles: function() {
+						return {
+							backgroundColor: this.color,
+							width: this.width + 'px'
+						};
+					}
+				}
+			});
+		</script>
+	</body>
+</html>
